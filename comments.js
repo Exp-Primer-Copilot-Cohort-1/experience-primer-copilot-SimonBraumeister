@@ -22,4 +22,6 @@ server.listen(port, () => {
 module.exports = [
     {
         name: 'John Doe',
-        email: '
+        email: ''
+    }
+];
