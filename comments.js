@@ -1,27 +1,24 @@
-// create web server
-// create a web server that listens to the port 3000 and returns the comments array
+// Create web server
+// This server will listen for requests on port 8080
+// and serve the comments.html file when requested.
 
-const http = require('http');
-const comments = require('./comments');
-const port = 3000;
+// Load the http module to create an http server.
+var http = require('http');
+var fs = require('fs');
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, {
-        'Content-Type': 'application/json'
-    });
-    res.end(JSON.stringify(comments));
-});
-
-server.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
-
-// Path: comments.js
-// create a comments array that contains objects with the following fields: name, email, comment
-
-module.exports = [
-    {
-        name: 'John Doe',
-        email: ''
+// Configure our HTTP server to respond with Hello World to all requests.
+var server = http.createServer(function (request, response) {
+  console.log("Request received");
+  response.writeHead(200, {"Content-Type": "text/html"});
+  fs.readFile('comments.html', function(err, data) {
+    if (err) {
+      response.writeHead(404);
+      response.write("Not Found!");
+    } else {
+      response.write(data);
     }
-];
+    response.end();
+  });
+});
+
+// Listen on port 8080, IP defaults to
